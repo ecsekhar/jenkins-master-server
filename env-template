@@ -1,0 +1,9 @@
+# Jenkins data directory:
+JENKINS_HOME=/jenkins-home
+JENKINS_OPTS=--prefix=/jenkins
+
+#keepUndefinedParameters: workaround for security transition, see https://jenkins.io/blog/2016/05/11/security-update/.
+#CSP: these are needed to show robot framework reports on browser.
+#JAVA_OPTS=-Dhudson.model.ParametersAction.keepUndefinedParameters=true -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts; default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' *.org.com data:"
+JAVA_OPTS=-Dhudson.model.ParametersAction.keepUndefinedParameters=true -Dhudson.model.DirectoryBrowserSupport.CSP="sandbox allow-scripts; default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:"
+

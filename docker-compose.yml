@@ -1,0 +1,28 @@
+version: '2'
+services:
+  jenkins-master:
+    build: jenkins-master
+    image: jenkins-master:2.60.3
+    container_name: jenkins-master
+    restart: always
+    environment:
+      - JENKINS_OPTS=${JENKINS_OPTS}
+      - JAVA_OPTS=${JAVA_OPTS}
+    volumes:
+      - ${JENKINS_HOME}:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+  nginx:
+    image: nginx:1.11-alpine
+    container_name: nginx
+    restart: always
+    volumes:
+      - ./nginx/conf:/etc/nginx
+      - ./nginx/index.html:/var/www/index.html:ro
+      - /var/log/check-mk-jenkins:/var/www/check-mk-jenkins:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - jenkins-master
